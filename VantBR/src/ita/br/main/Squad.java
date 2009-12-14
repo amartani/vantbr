@@ -10,7 +10,7 @@ public class Squad {
 
 	private String name;
 
-//	private static final int MAXTIME = Integer.MAX_VALUE;
+	// private static final int MAXTIME = Integer.MAX_VALUE;
 
 	public Squad(String name, int soldiers, Set<VNT> vnts) {
 		super();
@@ -26,7 +26,7 @@ public class Squad {
 	public Set<VNT> getVNTs() {
 		return vnts;
 	}
-	
+
 	public Boolean addVNT(VNT vnt) {
 		return vnts.add(vnt);
 	}
@@ -39,18 +39,18 @@ public class Squad {
 		this.vnts = vnts;
 	}
 
-//	public double getMissionTime(FlightPlan fp) {
-//		double result = MAXTIME;
-//		Iterator<VNT> it = this.getUavs().iterator();
-//		while (it.hasNext()) {
-//			VNT toWork = it.next();
-//			double time;
-//			if ((time = toWork.getTimeToMission(fp)) != -1) {
-//				result = Math.min(result, time);
-//			}
-//		}
-//		return result;
-//	}
+	// public double getMissionTime(FlightPlan fp) {
+	// double result = MAXTIME;
+	// Iterator<VNT> it = this.getUavs().iterator();
+	// while (it.hasNext()) {
+	// VNT toWork = it.next();
+	// double time;
+	// if ((time = toWork.getTimeToMission(fp)) != -1) {
+	// result = Math.min(result, time);
+	// }
+	// }
+	// return result;
+	// }
 
 	public void setName(String name) {
 		this.name = name;
@@ -59,14 +59,14 @@ public class Squad {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String toString() {
-		return getName(); 
+		return getName();
 	}
-	
+
 	public String description() {
-		return getName() + ": " + getSoldiers() + " soldiers, " +
-			getVNTs().size() + " UAVs";
+		return getName() + ": " + getSoldiers() + " soldiers, "
+				+ getVNTs().size() + " UAVs";
 	}
 
 }

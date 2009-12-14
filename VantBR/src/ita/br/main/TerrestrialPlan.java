@@ -25,19 +25,19 @@ public class TerrestrialPlan implements MissionPlan, Cloneable {
 	public void addWayPoint(PlanPoint wp) {
 		this.getRota().add(wp);
 	}
-	
+
 	public void addInitialPoint(PlanPoint wp) {
 		this.getRota().add(0, wp);
 	}
-	
+
 	public void addWayPoint(SpacialPoint wp) {
-		this.getRota().add(wp.toPlainPoint());
+		this.getRota().add(wp.toPlanPoint());
 	}
-	
+
 	public void addInitialPoint(SpacialPoint wp) {
-		this.getRota().add(0, wp.toPlainPoint());
+		this.getRota().add(0, wp.toPlanPoint());
 	}
-	
+
 	public void addWayPoint(WayPoint wp) {
 		if (wp instanceof SpacialPoint) {
 			addWayPoint((SpacialPoint) wp);
@@ -47,7 +47,7 @@ public class TerrestrialPlan implements MissionPlan, Cloneable {
 			throw new WayPointRuntimeException("Incompatible waypoint.");
 		}
 	}
-	
+
 	public void addInitialPoint(WayPoint wp) {
 		if (wp instanceof SpacialPoint) {
 			addInitialPoint((SpacialPoint) wp);
@@ -66,7 +66,9 @@ public class TerrestrialPlan implements MissionPlan, Cloneable {
 		this.payLoad = payLoad;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ita.br.main.MissionPlan#getMissionDistance()
 	 */
 	public double getMissionDistance() {
@@ -91,13 +93,13 @@ public class TerrestrialPlan implements MissionPlan, Cloneable {
 		}
 		return result;
 	}
-	
+
 	public PlanPoint getFirstWayPoint() {
 		return rota.get(0);
 	}
-	
+
 	public PlanPoint getLastWayPoint() {
-		return rota.get(rota.size()-1);
+		return rota.get(rota.size() - 1);
 	}
 
 }

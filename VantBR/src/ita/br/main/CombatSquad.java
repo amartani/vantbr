@@ -15,14 +15,14 @@ public class CombatSquad {
 		MissionPlan toCheck = mp.clone();
 		toCheck.addInitialPoint(this.getLocalization());
 		toCheck.addWayPoint(this.getLocalization());
-		
-		VNTVisitorFactory vfactory = new VNTVisitorFactory(); 
+
+		VNTVisitorFactory vfactory = new VNTVisitorFactory();
 		MinTimeVNTVisitor visitor = vfactory.createMinTimeVNTVisitor(toCheck);
-		for (VNT vnt: getSquad().getVNTs()) {
+		for (VNT vnt : getSquad().getVNTs()) {
 			vnt.accept(visitor);
 		}
 		return visitor;
-		
+
 	}
 
 	private void setSquad(Squad squad) {
@@ -40,7 +40,7 @@ public class CombatSquad {
 	public SpacialPoint getLocalization() {
 		return localization;
 	}
-	
+
 	public String toString() {
 		return getSquad().toString() + " at " + getLocalization();
 	}

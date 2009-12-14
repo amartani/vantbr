@@ -36,12 +36,12 @@ public class FlightPlan implements MissionPlan, Cloneable {
 		this.getRota().add(wp);
 		this.setMaxAltitude(Math.max(this.getMaxAltitude(), wp.getPointZ()));
 	}
-	
+
 	public void addInitialPoint(SpacialPoint wp) {
 		this.getRota().add(0, wp);
 		this.setMaxAltitude(Math.max(this.getMaxAltitude(), wp.getPointZ()));
 	}
-	
+
 	public void addWayPoint(WayPoint wp) {
 		if (wp instanceof SpacialPoint) {
 			addWayPoint((SpacialPoint) wp);
@@ -49,7 +49,7 @@ public class FlightPlan implements MissionPlan, Cloneable {
 			throw new WayPointRuntimeException("Incompatible waypoint.");
 		}
 	}
-	
+
 	public void addInitialPoint(WayPoint wp) {
 		if (wp instanceof SpacialPoint) {
 			addInitialPoint((SpacialPoint) wp);
@@ -99,12 +99,12 @@ public class FlightPlan implements MissionPlan, Cloneable {
 		}
 		return result;
 	}
-	
+
 	public SpacialPoint getFirstWayPoint() {
 		return rota.get(0);
 	}
-	
+
 	public SpacialPoint getLastWayPoint() {
-		return rota.get(rota.size()-1);
+		return rota.get(rota.size() - 1);
 	}
 }
