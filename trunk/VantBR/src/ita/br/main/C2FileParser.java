@@ -42,10 +42,10 @@ public class C2FileParser {
 			name = name.substring(1, name.length() - 1);
 			int soldiers = Integer.parseInt(squadspl[1].trim());
 			String[] coords = squadspl[2].split(",");
-			WayPoint waypoint = new WayPoint(Double.parseDouble(coords[0]
+			SpacialPoint waypoint = new SpacialPoint(Double.parseDouble(coords[0]
 					.trim()), Double.parseDouble(coords[1].trim()), Double
 					.parseDouble(coords[2].trim()));
-			Set<UAV> uavs = new HashSet<UAV>();
+			Set<VANT> uavs = new HashSet<VANT>();
 			Squad squad = new Squad(name, soldiers, uavs);
 			CombatSquad combat = new CombatSquad(squad, waypoint);
 			c2.addCombatSquad(combat);
@@ -67,10 +67,10 @@ public class C2FileParser {
 			int payLoad = Integer.parseInt(linespl[3].trim());
 			int velocity = Integer.parseInt(linespl[4].trim());
 
-			UAV uav = new UAV(altitudeCapability, endurance, payLoad, velocity);
+			VANT uav = new VANT(altitudeCapability, endurance, payLoad, velocity);
 			// Adiciona UAV em todos os Squads
 			for (CombatSquad combatsquad : combatsquads) {
-				combatsquad.getSquad().addUAV(uav);
+				combatsquad.getSquad().addVNT(uav);
 			}
 		}
 	}
@@ -78,10 +78,10 @@ public class C2FileParser {
 	private void parseRoutes() {
 		for (File file: ROTAFILES) {
 			Collection<String> lines = FileToString.getStringsFromFile(file);
-			ArrayList<WayPoint> rota = new ArrayList<WayPoint>();
+			ArrayList<SpacialPoint> rota = new ArrayList<SpacialPoint>();
 			for (String line: lines) {
 				String[] linespl = line.split(",");
-				WayPoint waypoint = new WayPoint(
+				SpacialPoint waypoint = new SpacialPoint(
 						Double.parseDouble(linespl[0].trim()),
 						Double.parseDouble(linespl[1].trim()),
 						Double.parseDouble(linespl[2].trim()));

@@ -1,5 +1,7 @@
 package ita.br.main;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +23,7 @@ public class C2Test {
 	public void tearDown() {
 		System.out.println();
 	}
-
+	
 	@Test
 	public void testAll() {
 		System.out.println("Tempo de cada pelotao:");

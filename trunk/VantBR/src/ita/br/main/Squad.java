@@ -1,57 +1,56 @@
 package ita.br.main;
 
-import java.util.Iterator;
 import java.util.Set;
 
 public class Squad {
 
 	private int soldiers;
 
-	private Set<UAV> uavs;
+	private Set<VNT> vnts;
 
 	private String name;
 
-	private static final int MAXTIME = Integer.MAX_VALUE;
+//	private static final int MAXTIME = Integer.MAX_VALUE;
 
-	public Squad(String name, int soldiers, Set<UAV> uavs) {
+	public Squad(String name, int soldiers, Set<VNT> vnts) {
 		super();
 		this.setName(name);
 		this.setSoldiers(soldiers);
-		this.setUavs(uavs);
+		this.setVNTs(vnts);
 	}
 
 	public int getSoldiers() {
 		return soldiers;
 	}
 
-	public Set<UAV> getUavs() {
-		return uavs;
+	public Set<VNT> getVNTs() {
+		return vnts;
 	}
 	
-	public Boolean addUAV(UAV uav) {
-		return uavs.add(uav);
+	public Boolean addVNT(VNT vnt) {
+		return vnts.add(vnt);
 	}
 
 	private void setSoldiers(int soldiers) {
 		this.soldiers = soldiers;
 	}
 
-	private void setUavs(Set<UAV> uavs) {
-		this.uavs = uavs;
+	private void setVNTs(Set<VNT> vnts) {
+		this.vnts = vnts;
 	}
 
-	public double getMissionTime(FlightPlan fp) {
-		double result = MAXTIME;
-		Iterator<UAV> it = this.getUavs().iterator();
-		while (it.hasNext()) {
-			UAV toWork = it.next();
-			double time;
-			if ((time = toWork.getTimeToMission(fp)) != -1) {
-				result = Math.min(result, time);
-			}
-		}
-		return result;
-	}
+//	public double getMissionTime(FlightPlan fp) {
+//		double result = MAXTIME;
+//		Iterator<VNT> it = this.getUavs().iterator();
+//		while (it.hasNext()) {
+//			VNT toWork = it.next();
+//			double time;
+//			if ((time = toWork.getTimeToMission(fp)) != -1) {
+//				result = Math.min(result, time);
+//			}
+//		}
+//		return result;
+//	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -67,7 +66,7 @@ public class Squad {
 	
 	public String description() {
 		return getName() + ": " + getSoldiers() + " soldiers, " +
-			getUavs().size() + " UAVs";
+			getVNTs().size() + " UAVs";
 	}
 
 }

@@ -4,25 +4,32 @@ public class CombatSquad {
 
 	private Squad squad;
 
-	private WayPoint localization;
+	private SpacialPoint localization;
 
-	public CombatSquad(Squad squad, WayPoint localization) {
+	public CombatSquad(Squad squad, SpacialPoint localization) {
 		this.setLocalization(localization);
 		this.setSquad(squad);
 	}
 
-	public double getMissionTime(FlightPlan fp) {
-		FlightPlan toCheck = fp.clone();
-		toCheck.getRota().add(0, this.getLocalization());
-		toCheck.getRota().add(this.getLocalization());
-		return this.getSquad().getMissionTime(toCheck);
+	public double getMissionTime(MissionPlan mp) {
+		MissionPlan toCheck = mp.clone();
+		toCheck.addInitialPoint(this.getLocalization());
+		toCheck.addWayPoint(this.getLocalization());
+		
+		VNTVisitorFactory vfactory = new VNTVisitorFactory(); 
+		MinTimeVNTVisitor visitor = vfactory.createMinTimeVNTVisitor(mp);
+		for (VNT vnt: getSquad().getVNTs()) {
+			vnt.accept(visitor);
+		}
+		return visitor.getMinTime();
+		
 	}
 
 	private void setSquad(Squad squad) {
 		this.squad = squad;
 	}
 
-	private void setLocalization(WayPoint localization) {
+	private void setLocalization(SpacialPoint localization) {
 		this.localization = localization;
 	}
 
@@ -30,7 +37,7 @@ public class CombatSquad {
 		return squad;
 	}
 
-	public WayPoint getLocalization() {
+	public SpacialPoint getLocalization() {
 		return localization;
 	}
 	

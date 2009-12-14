@@ -1,6 +1,6 @@
 package ita.br.main;
 
-public class UAV {
+public class VTNT implements VNT {
 
 	private int payLoad;
 
@@ -10,7 +10,8 @@ public class UAV {
 
 	private int altitudeCapability;
 
-	public UAV(int altitudeCapability, double endurance, int payLoad, int velocity) {
+	public VTNT(int altitudeCapability, double endurance, int payLoad,
+			int velocity) {
 		super();
 		this.setAltitudeCapability(altitudeCapability);
 		this.setEndurance(endurance);
@@ -59,4 +60,8 @@ public class UAV {
 		this.altitudeCapability = altitudeCapability;
 	}
 
+	@Override
+	public void accept(VNTVisitor visitor) {
+		visitor.visit(this);
+	}
 }
