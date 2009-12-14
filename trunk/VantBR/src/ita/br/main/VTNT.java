@@ -51,7 +51,7 @@ public class VTNT implements VNT {
 	public void accept(VNTVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public String toString() {
 		return name;
 	}

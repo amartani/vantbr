@@ -8,7 +8,8 @@ public class VANT implements VNT {
 	private int altitudeCapability;
 	private String name;
 
-	public VANT(String name, int altitudeCapability, double endurance, int payLoad, int velocity) {
+	public VANT(String name, int altitudeCapability, double endurance,
+			int payLoad, int velocity) {
 		super();
 		this.setName(name);
 		this.setAltitudeCapability(altitudeCapability);
@@ -48,7 +49,7 @@ public class VANT implements VNT {
 	private void setAltitudeCapability(int altitudeCapability) {
 		this.altitudeCapability = altitudeCapability;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -61,7 +62,7 @@ public class VANT implements VNT {
 	public void accept(VNTVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public String toString() {
 		return name;
 	}

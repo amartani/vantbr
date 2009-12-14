@@ -28,6 +28,10 @@ public class MinTimeVNTVisitorForFlightPlan implements MinTimeVNTVisitor {
 			return;
 		}
 
+		if (vant.getPayLoad() < fp.getPayLoad()) {
+			return;
+		}
+
 		double newTime = fp.getMissionDistance() / vant.getVelocity();
 		if (newTime < minTime) {
 			minTime = newTime;

@@ -36,19 +36,18 @@ public class PlanPoint implements WayPoint, Cloneable {
 		return false;
 	}
 
-//	public double getHorizontalDistanceFrom(PlanPoint other) {
-//		double deltaX = other.getPointX() - this.getPointX();
-//		double deltaY = other.getPointY() - this.getPointY();
-//		return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-//	}
+	// public double getHorizontalDistanceFrom(PlanPoint other) {
+	// double deltaX = other.getPointX() - this.getPointX();
+	// double deltaY = other.getPointY() - this.getPointY();
+	// return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+	// }
 
 	public PlanPoint clone() {
 		return new PlanPoint(this.getPointX(), this.getPointY());
 	}
 
 	public String toString() {
-		return "PlanPoint(" + this.getPointX() + ", "
-				+ this.getPointY() + ")";
+		return "PlanPoint(" + this.getPointX() + ", " + this.getPointY() + ")";
 	}
 
 	@Override

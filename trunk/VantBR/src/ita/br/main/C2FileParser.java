@@ -15,11 +15,10 @@ public class C2FileParser {
 	private List<CombatSquad> combatsquads;
 	private static final File SQUADFILE = new File("data/squads.csv");
 	private static final File VNTFILE = new File("data/vnts.csv");
-	private static final File[] ROTAFILES = { 
-			new File("data/FirstRota.csv"),
-			new File("data/SecondRota.csv"),
-			new File("data/ThirdRota.csv") };
-	
+	private static final File[] ROTAFILES = { new File("data/FirstRota.csv"),
+			new File("data/SecondRota.csv"), new File("data/ThirdRota.csv") };
+	private static final int[] PAYLOADS = { 30, 80, 120, 300 };
+
 	public C2FileParser(C2 c2) {
 		this.c2 = c2;
 		this.combatsquads = new ArrayList<CombatSquad>();
@@ -42,8 +41,9 @@ public class C2FileParser {
 			name = name.substring(1, name.length() - 1);
 			int soldiers = Integer.parseInt(squadspl[1].trim());
 			String[] coords = squadspl[2].split(",");
-			SpacialPoint waypoint = new SpacialPoint(Double.parseDouble(coords[0]
-					.trim()), Double.parseDouble(coords[1].trim()), Double
+			SpacialPoint waypoint = new SpacialPoint(Double
+					.parseDouble(coords[0].trim()), Double
+					.parseDouble(coords[1].trim()), Double
 					.parseDouble(coords[2].trim()));
 			Set<VNT> vnts = new HashSet<VNT>();
 			Squad squad = new Squad(name, soldiers, vnts);
@@ -62,7 +62,7 @@ public class C2FileParser {
 			String[] linespl = line.split(",");
 			String type = linespl[0].trim();
 			String name = linespl[1].trim();
-			//name = name.substring(1, name.length() - 1);
+			// name = name.substring(1, name.length() - 1);
 			int altitudeCapability = Integer.parseInt(linespl[2].trim());
 			double endurance = Double.parseDouble(linespl[3].trim());
 			int payLoad = Integer.parseInt(linespl[4].trim());
@@ -70,7 +70,8 @@ public class C2FileParser {
 			VNT vnt;
 
 			if (type.equals("A")) {
-				vnt = new VANT(name, altitudeCapability, endurance, payLoad, velocity);
+				vnt = new VANT(name, altitudeCapability, endurance, payLoad,
+						velocity);
 			} else {
 				vnt = new VTNT(name, endurance, payLoad, velocity);
 			}
@@ -82,18 +83,25 @@ public class C2FileParser {
 	}
 
 	private void parseRoutes() {
-		for (File file: ROTAFILES) {
+		for (File file : ROTAFILES) {
 			Collection<String> lines = FileToString.getStringsFromFile(file);
 			ArrayList<SpacialPoint> rota = new ArrayList<SpacialPoint>();
-			for (String line: lines) {
+			ArrayList<PlanPoint> rotaTerrestre = new ArrayList<PlanPoint>();
+			for (String line : lines) {
 				String[] linespl = line.split(",");
-				SpacialPoint waypoint = new SpacialPoint(
-						Double.parseDouble(linespl[0].trim()),
-						Double.parseDouble(linespl[1].trim()),
-						Double.parseDouble(linespl[2].trim()));
+				SpacialPoint waypoint = new SpacialPoint(Double
+						.parseDouble(linespl[0].trim()), Double
+						.parseDouble(linespl[1].trim()), Double
+						.parseDouble(linespl[2].trim()));
 				rota.add(waypoint);
+				rotaTerrestre.add(waypoint.toPlanPoint());
 			}
-			c2.addFlightPlan(new FlightPlan(rota, 0));
+			for (int payload : PAYLOADS) {
+				c2.addMissionPlan(new FlightPlan(rota, payload));
+			}
+			for (int payload : PAYLOADS) {
+				c2.addMissionPlan(new TerrestrialPlan(rotaTerrestre, payload));
+			}
 		}
 	}
 

@@ -48,11 +48,11 @@ public class SpacialPoint implements WayPoint, Cloneable {
 		return false;
 	}
 
-//	public double getHorizontalDistanceFrom(SpacialPoint other) {
-//		double deltaX = other.getPointX() - this.getPointX();
-//		double deltaY = other.getPointY() - this.getPointY();
-//		return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-//	}
+	// public double getHorizontalDistanceFrom(SpacialPoint other) {
+	// double deltaX = other.getPointX() - this.getPointX();
+	// double deltaY = other.getPointY() - this.getPointY();
+	// return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+	// }
 
 	public SpacialPoint clone() {
 		return new SpacialPoint(this.getPointX(), this.getPointY(), this
@@ -60,9 +60,8 @@ public class SpacialPoint implements WayPoint, Cloneable {
 	}
 
 	public String toString() {
-		return "SpacialPoint(" + this.getPointX() + ", "
-				+ this.getPointY() + ", "
-				+ this.getPointZ() + ")";
+		return "SpacialPoint(" + this.getPointX() + ", " + this.getPointY()
+				+ ", " + this.getPointZ() + ")";
 	}
 
 	@Override
@@ -74,10 +73,11 @@ public class SpacialPoint implements WayPoint, Cloneable {
 		double deltaX = other.getPointX() - this.getPointX();
 		double deltaY = other.getPointY() - this.getPointY();
 		double deltaZ = other.getPointZ() - this.getPointZ();
-		return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2) + Math.pow(deltaZ, 2));
+		return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)
+				+ Math.pow(deltaZ, 2));
 	}
 
-	public PlanPoint toPlainPoint() {
+	public PlanPoint toPlanPoint() {
 		return new PlanPoint(getPointX(), getPointY());
 	}
 

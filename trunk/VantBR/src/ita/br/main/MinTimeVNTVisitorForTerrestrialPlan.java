@@ -5,7 +5,7 @@ public class MinTimeVNTVisitorForTerrestrialPlan implements MinTimeVNTVisitor {
 	double minTime;
 	VNT fasterVNT;
 	TerrestrialPlan tp;
-	
+
 	public MinTimeVNTVisitorForTerrestrialPlan(TerrestrialPlan tp) {
 		this.tp = tp;
 		minTime = Double.MAX_VALUE;
@@ -29,7 +29,11 @@ public class MinTimeVNTVisitorForTerrestrialPlan implements MinTimeVNTVisitor {
 
 	@Override
 	public void visit(VTNT vtnt) {
-		double newTime = tp.getMissionDistance()/vtnt.getVelocity();
+		if (vtnt.getPayLoad() < tp.getPayLoad()) {
+			return;
+		}
+
+		double newTime = tp.getMissionDistance() / vtnt.getVelocity();
 		if (newTime < minTime) {
 			minTime = newTime;
 			fasterVNT = vtnt;
