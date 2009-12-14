@@ -3,15 +3,15 @@ package ita.br.main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlightPlan implements Cloneable {
+public class FlightPlan implements MissionPlan, Cloneable {
 
-	private List<WayPoint> rota;
+	private List<SpacialPoint> rota;
 
 	private int payLoad;
 
 	private double maxAltitude = 0;
 
-	public FlightPlan(List<WayPoint> rota, int payLoad) {
+	public FlightPlan(List<SpacialPoint> rota, int payLoad) {
 		this.setRota(rota);
 		this.setPayLoad(payLoad);
 	}
@@ -20,7 +20,7 @@ public class FlightPlan implements Cloneable {
 		this.maxAltitude = maxAltitude;
 	}
 
-	public List<WayPoint> getRota() {
+	public List<SpacialPoint> getRota() {
 		return rota;
 	}
 
@@ -32,12 +32,33 @@ public class FlightPlan implements Cloneable {
 		return maxAltitude;
 	}
 
-	public void addWayPoint(WayPoint wp) {
+	public void addWayPoint(SpacialPoint wp) {
 		this.getRota().add(wp);
 		this.setMaxAltitude(Math.max(this.getMaxAltitude(), wp.getPointZ()));
 	}
+	
+	public void addInitialPoint(SpacialPoint wp) {
+		this.getRota().add(0, wp);
+		this.setMaxAltitude(Math.max(this.getMaxAltitude(), wp.getPointZ()));
+	}
+	
+	public void addWayPoint(WayPoint wp) {
+		if (wp instanceof SpacialPoint) {
+			addWayPoint((SpacialPoint) wp);
+		} else {
+			throw new WayPointRuntimeException("Incompatible waypoint.");
+		}
+	}
+	
+	public void addInitialPoint(WayPoint wp) {
+		if (wp instanceof SpacialPoint) {
+			addInitialPoint((SpacialPoint) wp);
+		} else {
+			throw new WayPointRuntimeException("Incompatible waypoint.");
+		}
+	}
 
-	private void setRota(List<WayPoint> rota) {
+	private void setRota(List<SpacialPoint> rota) {
 		this.rota = rota;
 		this.findMaxAltitude();
 	}
@@ -45,7 +66,7 @@ public class FlightPlan implements Cloneable {
 	private void findMaxAltitude() {
 		this.setMaxAltitude(0);
 		for (int i = 0; i < rota.size(); i++) {
-			WayPoint wp = rota.get(i);
+			SpacialPoint wp = rota.get(i);
 			this
 					.setMaxAltitude(Math.max(this.getMaxAltitude(), wp
 							.getPointZ()));
@@ -59,32 +80,31 @@ public class FlightPlan implements Cloneable {
 	public double getMissionDistance() {
 		double result = 0;
 		for (int i = 1; i < this.getRota().size(); i++) {
-			result += this.getRota().get(i).getHorizontalDistanceFrom(
+			result += this.getRota().get(i).toPointDistance(
 					this.getRota().get(i - 1));
 		}
 		return result;
 	}
 
 	public FlightPlan clone() {
-		List<WayPoint> newRota = this.getNewRota();
+		List<SpacialPoint> newRota = this.getNewRota();
 		return new FlightPlan(newRota, this.getPayLoad());
 	}
 
-	private List<WayPoint> getNewRota() {
-		List<WayPoint> result = new ArrayList<WayPoint>();
+	private List<SpacialPoint> getNewRota() {
+		List<SpacialPoint> result = new ArrayList<SpacialPoint>();
 
-		for (WayPoint wp : this.getRota()) {
+		for (SpacialPoint wp : this.getRota()) {
 			result.add(wp.clone());
 		}
 		return result;
 	}
 	
-	public WayPoint getFirstWayPoint() {
+	public SpacialPoint getFirstWayPoint() {
 		return rota.get(0);
 	}
 	
-	public WayPoint getLastWayPoint() {
+	public SpacialPoint getLastWayPoint() {
 		return rota.get(rota.size()-1);
 	}
-
 }
