@@ -14,7 +14,7 @@ public class C2FileParser {
 	private C2 c2;
 	private List<CombatSquad> combatsquads;
 	private static final File SQUADFILE = new File("data/squads.csv");
-	private static final File UAVFILE = new File("data/uavs.csv");
+	private static final File VNTFILE = new File("data/vnts.csv");
 	private static final File[] ROTAFILES = { 
 			new File("data/FirstRota.csv"),
 			new File("data/SecondRota.csv"),
@@ -27,7 +27,7 @@ public class C2FileParser {
 
 	public void parseAll() {
 		parseSquads();
-		parseUAVs();
+		parseVNTs();
 		parseRoutes();
 	}
 
@@ -53,24 +53,30 @@ public class C2FileParser {
 		}
 	}
 
-	private void parseUAVs() {
-		Collection<String> lines = FileToString.getStringsFromFile(UAVFILE);
+	private void parseVNTs() {
+		Collection<String> lines = FileToString.getStringsFromFile(VNTFILE);
 		for (String line : lines) {
 			line = line.trim();
 			if (line.isEmpty())
 				continue;
 			String[] linespl = line.split(",");
-			String name = linespl[0].trim();
-			name = name.substring(1, name.length() - 1);
-			int altitudeCapability = Integer.parseInt(linespl[1].trim());
-			double endurance = Double.parseDouble(linespl[2].trim());
-			int payLoad = Integer.parseInt(linespl[3].trim());
-			int velocity = Integer.parseInt(linespl[4].trim());
+			String type = linespl[0].trim();
+			String name = linespl[1].trim();
+			//name = name.substring(1, name.length() - 1);
+			int altitudeCapability = Integer.parseInt(linespl[2].trim());
+			double endurance = Double.parseDouble(linespl[3].trim());
+			int payLoad = Integer.parseInt(linespl[4].trim());
+			int velocity = Integer.parseInt(linespl[5].trim());
+			VNT vnt;
 
-			VANT uav = new VANT(altitudeCapability, endurance, payLoad, velocity);
+			if (type.equals("A")) {
+				vnt = new VANT(name, altitudeCapability, endurance, payLoad, velocity);
+			} else {
+				vnt = new VTNT(name, endurance, payLoad, velocity);
+			}
 			// Adiciona UAV em todos os Squads
 			for (CombatSquad combatsquad : combatsquads) {
-				combatsquad.getSquad().addVNT(uav);
+				combatsquad.getSquad().addVNT(vnt);
 			}
 		}
 	}

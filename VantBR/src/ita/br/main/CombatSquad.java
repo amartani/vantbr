@@ -17,7 +17,7 @@ public class CombatSquad {
 		toCheck.addWayPoint(this.getLocalization());
 		
 		VNTVisitorFactory vfactory = new VNTVisitorFactory(); 
-		MinTimeVNTVisitor visitor = vfactory.createMinTimeVNTVisitor(mp);
+		MinTimeVNTVisitor visitor = vfactory.createMinTimeVNTVisitor(toCheck);
 		for (VNT vnt: getSquad().getVNTs()) {
 			vnt.accept(visitor);
 		}

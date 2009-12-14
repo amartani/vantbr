@@ -3,29 +3,16 @@ package ita.br.main;
 public class VTNT implements VNT {
 
 	private int payLoad;
-
 	private double endurance;
-
 	private int velocity;
+	private String name;
 
-	private int altitudeCapability;
-
-	public VTNT(int altitudeCapability, double endurance, int payLoad,
-			int velocity) {
+	public VTNT(String name, double endurance, int payLoad, int velocity) {
 		super();
-		this.setAltitudeCapability(altitudeCapability);
+		this.setName(name);
 		this.setEndurance(endurance);
 		this.setPayLoad(payLoad);
 		this.setVelocity(velocity);
-	}
-
-	public double getTimeToMission(FlightPlan fp) {
-		if (fp.getPayLoad() < this.getPayLoad()
-				&& fp.getMaxAltitude() < this.getAltitudeCapability()) {
-			double distance = fp.getMissionDistance();
-			return distance / velocity;
-		}
-		return -1;
 	}
 
 	public int getPayLoad() {
@@ -40,10 +27,6 @@ public class VTNT implements VNT {
 		return velocity;
 	}
 
-	public int getAltitudeCapability() {
-		return altitudeCapability;
-	}
-
 	private void setPayLoad(int payLoad) {
 		this.payLoad = payLoad;
 	}
@@ -56,12 +39,20 @@ public class VTNT implements VNT {
 		this.velocity = velocity;
 	}
 
-	private void setAltitudeCapability(int altitudeCapability) {
-		this.altitudeCapability = altitudeCapability;
+	public String getName() {
+		return name;
+	}
+
+	private void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public void accept(VNTVisitor visitor) {
 		visitor.visit(this);
+	}
+	
+	public String toString() {
+		return name;
 	}
 }

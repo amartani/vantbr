@@ -3,28 +3,18 @@ package ita.br.main;
 public class VANT implements VNT {
 
 	private int payLoad;
-
 	private double endurance;
-
 	private int velocity;
-
 	private int altitudeCapability;
+	private String name;
 
-	public VANT(int altitudeCapability, double endurance, int payLoad, int velocity) {
+	public VANT(String name, int altitudeCapability, double endurance, int payLoad, int velocity) {
 		super();
+		this.setName(name);
 		this.setAltitudeCapability(altitudeCapability);
 		this.setEndurance(endurance);
 		this.setPayLoad(payLoad);
 		this.setVelocity(velocity);
-	}
-
-	public double getTimeToMission(FlightPlan fp) {
-		if (fp.getPayLoad() < this.getPayLoad()
-				&& fp.getMaxAltitude() < this.getAltitudeCapability()) {
-			double distance = fp.getMissionDistance();
-			return distance / velocity;
-		}
-		return -1;
 	}
 
 	public int getPayLoad() {
@@ -58,10 +48,22 @@ public class VANT implements VNT {
 	private void setAltitudeCapability(int altitudeCapability) {
 		this.altitudeCapability = altitudeCapability;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	private void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
 	public void accept(VNTVisitor visitor) {
 		visitor.visit(this);
+	}
+	
+	public String toString() {
+		return name;
 	}
 
 }

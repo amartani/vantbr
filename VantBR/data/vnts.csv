@@ -1,0 +1,19 @@
+A,Arcturus T-16,40000, 16, 20, 100
+A,Darkstar, 45000,8,1000,40
+T,Topeira, 0,16,20,100
+A,Eagle Eye, 20000,8,300,70
+A,Exdrone, 10000, 2.5, 20,100
+A,Firebee, 60000,1.25, 470, 50
+A,GlobalHawk, 65000, 42, 1960, 40
+T,Tamandua, 0,10000,8,300,70
+A,GNAT 750, 25000,48,140,85
+A,Hunter, 1500, 12, 200, 70
+T,Tatu,0,2.5,200,80
+A,Model 324, 43000, 2.5,200, 80
+A,Model 410, 30000, 12, 300, 70
+T,Formiga,0,100,10,50
+A,Outrider, 15000, 4, 160, 75
+A,Pioneer, 12000, 5.5, 75, 85
+A,Pointer, 3000, 1, 2, 200
+T,Suricato,0,40,20,120
+A,Predator, 40000, 29,700, 55
