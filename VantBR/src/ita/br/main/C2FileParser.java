@@ -45,8 +45,8 @@ public class C2FileParser {
 			SpacialPoint waypoint = new SpacialPoint(Double.parseDouble(coords[0]
 					.trim()), Double.parseDouble(coords[1].trim()), Double
 					.parseDouble(coords[2].trim()));
-			Set<VANT> uavs = new HashSet<VANT>();
-			Squad squad = new Squad(name, soldiers, uavs);
+			Set<VNT> vnts = new HashSet<VNT>();
+			Squad squad = new Squad(name, soldiers, vnts);
 			CombatSquad combat = new CombatSquad(squad, waypoint);
 			c2.addCombatSquad(combat);
 			combatsquads.add(combat);
