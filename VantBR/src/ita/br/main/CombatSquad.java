@@ -11,7 +11,7 @@ public class CombatSquad {
 		this.setSquad(squad);
 	}
 
-	public double getMissionTime(MissionPlan mp) {
+	public MinTimeVNTVisitor getMinTimeVNTVisitor(MissionPlan mp) {
 		MissionPlan toCheck = mp.clone();
 		toCheck.addInitialPoint(this.getLocalization());
 		toCheck.addWayPoint(this.getLocalization());
@@ -21,7 +21,7 @@ public class CombatSquad {
 		for (VNT vnt: getSquad().getVNTs()) {
 			vnt.accept(visitor);
 		}
-		return visitor.getMinTime();
+		return visitor;
 		
 	}
 

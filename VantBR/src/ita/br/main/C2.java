@@ -41,8 +41,10 @@ public class C2 {
 			System.out.println("Plano " + i);
 			i++;
 			for (CombatSquad csquad: combatSquads) {
-				double time = csquad.getMissionTime(fp);
-				System.out.println(csquad.getSquad().getName() + ": " + minutesFormat.format(time));
+				MinTimeVNTVisitor visitor = csquad.getMinTimeVNTVisitor(fp); 
+				double time = visitor.getMinTime();
+				VNT vnt = visitor.getFasterVNT();
+				System.out.println(csquad.getSquad().getName() + ": " + minutesFormat.format(time) + " (" + vnt + ")");
 			}
 		}
 	}
@@ -53,16 +55,20 @@ public class C2 {
 			System.out.println("Plano " + i);
 			i++;
 			double besttime = Double.MAX_VALUE;
+			VNT bestvnt = null;
 			CombatSquad bestsquad = null;
 			for (CombatSquad csquad: combatSquads) {
-				double time = csquad.getMissionTime(fp);
+				MinTimeVNTVisitor visitor = csquad.getMinTimeVNTVisitor(fp); 
+				double time = visitor.getMinTime();
+				VNT vnt = visitor.getFasterVNT();
 				if (time < besttime) {
 					besttime = time;
 					bestsquad = csquad;
+					bestvnt = vnt;
 				}
 			}
 			if (bestsquad != null) {
-				System.out.println(bestsquad.getSquad().getName() + ": " + minutesFormat.format(besttime));
+				System.out.println(bestsquad.getSquad().getName() + ": " + minutesFormat.format(besttime) + " (" + bestvnt + ")");
 			}
 		}
 	}
